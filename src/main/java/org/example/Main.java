@@ -11,7 +11,5 @@ public class Main {
         ServerWindow serverWindow = new ServerWindow();
         new ClientGUI(serverWindow);
         new ClientGUI(serverWindow);
-
-        // TODO: нужно сделать обмен между клиентами во время отправки сообщений без socket.
     }
 }
