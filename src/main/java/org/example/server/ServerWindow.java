@@ -15,15 +15,17 @@ public class ServerWindow extends JFrame {
 
     private final JButton buttonStart = new JButton("Start Server");
     private final JButton buttonStop = new JButton("Stop Server");
-    private final JTextArea serverLogArea = new JTextArea();
+    final JTextArea serverLogArea = new JTextArea();
     public boolean isServerRunning;
 
     LogFile logFile = new LogFile();
+    ServerLogic serverLogic;
 
-    public ServerWindow() throws FileNotFoundException {
+    public ServerWindow() {
         isServerRunning = false;
+        serverLogic = new ServerLogic(logFile, this);
+        settings();
         updateLogArea();
-
         buttonStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,7 +74,9 @@ public class ServerWindow extends JFrame {
                 }
             }
         });
+    }
 
+    private void settings() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(POS_X, POS_Y, WIDTH, HEIGHT);
         setResizable(false);
@@ -93,21 +97,11 @@ public class ServerWindow extends JFrame {
         setVisible(true);
     }
 
-
     public void setNewMessage(String message) throws IOException {
-        if (isServerRunning) {
-            logFile.write(message);
-            serverLogArea.append(message);
-            serverLogArea.setText(updateLogArea());
-        }
+        serverLogic.setNewMessage(message);
     }
 
     public String updateLogArea() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String str : logFile.read()) {
-            stringBuilder.append(str);
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
+        return serverLogic.updateLogArea();
     }
 }

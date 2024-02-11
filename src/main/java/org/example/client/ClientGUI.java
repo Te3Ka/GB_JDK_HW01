@@ -16,7 +16,7 @@ public class ClientGUI extends JFrame {
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
 
-    private final JTextArea logArea = new JTextArea();
+    final JTextArea logArea = new JTextArea();
 
     private final JPanel panelTop = new JPanel(new GridLayout(2, 3));
     private final JTextField tfIPAddress = new JTextField("127.0.0.1");
@@ -29,33 +29,14 @@ public class ClientGUI extends JFrame {
     private final JPanel panelBottom = new JPanel(new BorderLayout());
     private final JTextField tfMessage = new JTextField();
     private final JButton buttonSendMessage = new JButton("Send");
-    private boolean isConnected;
+    boolean isConnected;
+
+    ClientView clientView;
+    ClientLogic clientLogic;
 
     public ClientGUI(ServerWindow serverWindow) {
-        isConnected = false;
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setSize(WIDTH, HEIGHT);
-        setTitle("Chat client");
-
-        panelTop.add(tfIPAddress);
-        panelTop.add(tfPort);
-        panelTop.add(tfEmpty);
-        panelTop.add(tfLogin);
-        panelTop.add(tfPassword);
-        panelTop.add(buttonLogin);
-        add(panelTop, BorderLayout.NORTH);
-
-        panelBottom.add(tfMessage, BorderLayout.CENTER);
-        panelBottom.add(buttonSendMessage, BorderLayout.EAST);
-        add(panelBottom, BorderLayout.SOUTH);
-
-        logArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(logArea);
-        add(scrollPane);
-
-        setVisible(true);
-        setAlwaysOnTop(true);
+        settings();
+        clientLogic = new ClientLogic(serverWindow, this);
 
         buttonLogin.addActionListener(new ActionListener() {
             @Override
@@ -134,9 +115,30 @@ public class ClientGUI extends JFrame {
         });
     }
 
-    private void updateTextArea(ServerWindow serverWindow) {
-        while (isConnected) {
-            logArea.setText(serverWindow.updateLogArea());
-        }
+    private void settings() {
+        isConnected = false;
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setSize(WIDTH, HEIGHT);
+        setTitle("Chat client");
+
+        panelTop.add(tfIPAddress);
+        panelTop.add(tfPort);
+        panelTop.add(tfEmpty);
+        panelTop.add(tfLogin);
+        panelTop.add(tfPassword);
+        panelTop.add(buttonLogin);
+        add(panelTop, BorderLayout.NORTH);
+
+        panelBottom.add(tfMessage, BorderLayout.CENTER);
+        panelBottom.add(buttonSendMessage, BorderLayout.EAST);
+        add(panelBottom, BorderLayout.SOUTH);
+
+        logArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(logArea);
+        add(scrollPane);
+
+        setVisible(true);
+        setAlwaysOnTop(true);
     }
 }
