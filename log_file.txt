@@ -21,3 +21,23 @@ PaynE: Последняя проверка.
 Te3Ka: Теперь точно всё работает?
 PaynE: Должно
 Te3Ka: Можно окно расширить, чтобы сразу весь чат появлялся...
+Server is running.
+te3Ka is connected
+te3Ka: 123123
+Greh is connected
+Greh: fdsfsd
+Server stopped.
+Server already stopped.
+Server is running.
+No Name is connected
+No Name: adfasdf
+No Name: fdaf
+Greh is connected
+Greh: fadf
+Greh: fff
+Server is running.
+Te3Ka is connected
+Greh is connected
+Greh: ;ladjfl;kdjf
+Te3Ka: 1212345
+Server stopped.
